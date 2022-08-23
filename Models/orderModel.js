@@ -1,15 +1,12 @@
 module.exports=
  (Sequelize,DataTypes)=>{
 const Order=Sequelize.define("Order",{
-amount:{
-    type:DataTypes.STRING,
-    defaultValue: ""
+cartID:{
+    type:DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true,
 },
-itemName:{
-    type:DataTypes.STRING,
-    defaultValue: ""
-},
-qtn:{
+total:{
     type:DataTypes.STRING,
     defaultValue: ""
 },

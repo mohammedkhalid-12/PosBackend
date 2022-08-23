@@ -28,8 +28,10 @@ const sequelize = new Sequelize(
     Tables.User=require('../Models/userModel') (sequelize,DataTypes);
     Tables.Category=require('../Models/categoryModel') (sequelize,DataTypes);
     Tables.Item=require('../Models/itemModel') (sequelize,DataTypes);
+    Tables.ShoppingCart=require('../Models/ShoppingCartModel') (sequelize,DataTypes);
     Tables.Order=require('../Models/orderModel') (sequelize,DataTypes);
     Tables.Vendor=require('../Models/ VendorModel') (sequelize,DataTypes);
+    Tables.Stock=require('../Models/StockModel') (sequelize,DataTypes);
     Tables.sequelize.sync({force:false});
 
     //realtionShip
@@ -55,4 +57,22 @@ const sequelize = new Sequelize(
         Tables.Item.belongsTo(Tables.Category,{
             foreignKey :'catID',
      })
+     //STock item
+     Tables.Stock.hasMany(Tables.Item,
+        {
+        foreignKey :'catID',
+        onDelete: "cascade",    
+        })
+        Tables.Item.belongsTo(Tables.Stock,{
+            foreignKey :'itemID',
+     })
+// shopping Carts
+     Tables.Order.hasOne(Tables.ShoppingCart,
+        {
+            foreignKey :'id',
+        })
+        Tables.ShoppingCart.belongsTo(Tables.Order,{
+            foreignKey :'cartID',
+     })
+
     module.exports=Tables
